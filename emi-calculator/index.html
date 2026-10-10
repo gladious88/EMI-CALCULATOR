@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EMI Pro - Advanced Loan Calculator & Financial Dashboard. Calculate monthly instalments, compare loan options, simulate prepayments, and analyze amortization schedules.">
+  <title>EMI Pro | Calculate. Plan. Save.</title>
+  
+  <!-- Data URI Favicon (Inline Calculator Icon) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E43D12'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 14H7v-2h10v2zm0-4H7v-2h10v2zm0-4H7V7h10v2z'/></svg>">
+  
+  <link rel="stylesheet" href="style.css?v=3.0">
+</head>
+<body>
+  <!-- Accessibility Skip Link -->
+  <a href="#calculator-section" class="skip-link">Skip to EMI Calculator</a>
+
+  <!-- 3. NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#" class="brand" aria-label="EMI Pro Home">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="16" y1="14" x2="16" y2="18"></line>
+            <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">EMI Pro</div>
+          <div class="brand-tagline">Plan Smart. Borrow Better.</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#calculator-section" class="nav-link">Calculator</a></li>
+          <li><a href="#comparison-section" class="nav-link">Compare Loans</a></li>
+          <li><a href="#breakdown-section" class="nav-link">Repayment</a></li>
+          <li><a href="#schedule-section" class="nav-link">Features</a></li>
+          <li><a href="#about-section" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle-btn" class="btn-icon" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">
+          <svg class="theme-sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <button id="settings-btn" class="btn-icon" aria-label="Open Settings" title="Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
+        <button id="mobile-menu-btn" class="btn-icon mobile-menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle Navigation Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+      <a href="#calculator-section" class="nav-link">Calculator</a>
+      <a href="#comparison-section" class="nav-link">Compare Loans</a>
+      <a href="#breakdown-section" class="nav-link">Repayment</a>
+      <a href="#schedule-section" class="nav-link">Features</a>
+      <a href="#about-section" class="nav-link">About</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Print Report Header -->
+    <div class="print-header">
+      <h1>EMI Pro - Loan Calculation & Amortization Report</h1>
+      <p>Generated on: <span id="print-date"></span> | www.emipro.local</p>
+    </div>
+
+    <!-- 4. EDITORIAL HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h1 class="hero-title">CALCULATE.<br><span class="highlight-title">PLAN. SAVE.</span></h1>
+          <p class="hero-desc">Understand your EMI, compare loan offers, and discover smarter ways to manage your repayments.</p>
+
+          <div class="hero-ctas">
+            <a href="#calculator-section" class="btn btn-primary">Calculate My EMI</a>
+            <a href="#comparison-section" class="btn btn-secondary">Compare Loans</a>
+          </div>
+
+          <div class="hero-highlights">
+            <div class="highlight-card">
+              <div class="highlight-icon">⚡</div>
+              <div class="highlight-text">Instant EMI Calculation</div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon">⚖️</div>
+              <div class="highlight-text">Smart Loan Comparison</div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon">📊</div>
+              <div class="highlight-text">Detailed Repayment Insights</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-illustration">
+          <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="300" rx="16" fill="#EBE9E1" />
+            <circle cx="200" cy="150" r="110" fill="#FFA2B6" fill-opacity="0.4" />
+            <rect x="70" y="60" width="260" height="180" rx="16" fill="#FFFFFF" stroke="#D8D4CC" stroke-width="3" />
+            <rect x="95" y="85" width="130" height="24" rx="6" fill="#E43D12" />
+            <rect x="95" y="120" width="180" height="12" rx="4" fill="#D6536D" />
+            <rect x="95" y="140" width="140" height="12" rx="4" fill="#EFB11D" />
+            <circle cx="290" cy="190" r="28" fill="#EFB11D" />
+            <path d="M280 190 L288 198 L302 182" stroke="#252525" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. EMI CALCULATOR SECTION -->
+    <section id="calculator-section" class="section">
+      <div class="container calc-dashboard-grid">
+        
+        <!-- Calculator Form Card -->
+        <div class="card">
+          <h2 class="section-title">Loan Parameters</h2>
+          <p class="section-desc" style="margin-bottom: 1.5rem;">Adjust loan amount, interest rate, and tenure.</p>
+
+          <!-- Presets Bar -->
+          <div class="presets-bar" role="group" aria-label="Loan Preset Selection">
+            <button type="button" class="preset-btn active" data-preset="home">Home Loan (8.5%, 20y)</button>
+            <button type="button" class="preset-btn" data-preset="car">Car Loan (9.0%, 5y)</button>
+            <button type="button" class="preset-btn" data-preset="personal">Personal (12.0%, 3y)</button>
+            <button type="button" class="preset-btn" data-preset="education">Education (9.5%, 7y)</button>
+            <button type="button" class="preset-btn" data-preset="custom">Custom</button>
+          </div>
+
+          <div id="preset-applied-notice" class="preset-notice" style="display: none;">
+            <span>Preset applied: <strong id="preset-notice-text">Home Loan</strong></span>
+            <button type="button" id="undo-preset-btn" class="btn-sm btn-outline">Undo</button>
+          </div>
+
+          <form id="emi-calc-form" novalidate>
+            <!-- Loan Amount -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="amount-input" class="form-label">Loan Amount</label>
+                <span id="amount-formatted" class="input-formatted-badge">₹10,00,000.00</span>
+              </div>
+              <div class="input-container">
+                <span class="input-prefix">₹</span>
+                <input type="text" id="amount-input" class="form-input has-prefix" inputmode="decimal" value="10,00,000" aria-describedby="amount-error amount-hint" required>
+              </div>
+              <div id="amount-error" class="error-msg" role="alert" style="display: none;"></div>
+              
+              <div class="slider-container">
+                <input type="range" id="amount-slider" class="form-slider" min="10000" max="10000000" step="10000" value="1000000" aria-label="Loan Amount Slider">
+                <div class="slider-labels">
+                  <span>₹10,000</span>
+                  <span>₹1 Crore</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interest Rate -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="rate-input" class="form-label">Annual Interest Rate</label>
+                <span id="rate-formatted" class="input-formatted-badge">8.50%</span>
+              </div>
+              <div class="input-container">
+                <input type="text" id="rate-input" class="form-input has-suffix" inputmode="decimal" value="8.5" aria-describedby="rate-error" required>
+                <span class="input-suffix">% p.a.</span>
+              </div>
+              <div id="rate-error" class="error-msg" role="alert" style="display: none;"></div>
+
+              <div class="slider-container">
+                <input type="range" id="rate-slider" class="form-slider" min="0" max="30" step="0.05" value="8.5" aria-label="Interest Rate Slider">
+                <div class="slider-labels">
+                  <span>0%</span>
+                  <span>30%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tenure & Unit Toggle -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="tenure-input" class="form-label">Loan Tenure</label>
+                <div class="unit-toggle-group" role="group" aria-label="Tenure Unit Toggle">
+                  <button type="button" id="unit-years-btn" class="unit-toggle-btn active" data-unit="years">Years</button>
+                  <button type="button" id="unit-months-btn" class="unit-toggle-btn" data-unit="months">Months</button>
+                </div>
+              </div>
+              <div class="input-container">
+                <input type="text" id="tenure-input" class="form-input has-suffix" inputmode="decimal" value="20" aria-describedby="tenure-error" required>
+                <span id="tenure-unit-label" class="input-suffix">Years</span>
+              </div>
+              <div id="tenure-error" class="error-msg" role="alert" style="display: none;"></div>
+
+              <div class="slider-container">
+                <input type="range" id="tenure-slider" class="form-slider" min="1" max="40" step="1" value="20" aria-label="Tenure Slider">
+                <div class="slider-labels">
+                  <span id="slider-min-label">1 Year</span>
+                  <span id="slider-max-label">40 Years</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Start Month -->
+            <div class="form-group">
+              <label for="start-date-input" class="form-label">Loan Start Month</label>
+              <input type="month" id="start-date-input" class="form-input" required>
+            </div>
+
+            <div id="form-error-summary" class="error-msg" style="display: none; margin-bottom: 1rem;"></div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+              <button type="button" id="calc-btn" class="btn btn-primary">Calculate EMI</button>
+              <button type="button" id="reset-btn" class="btn btn-secondary">Reset</button>
+              <button type="button" id="save-scenario-btn" class="btn btn-outline">Save Scenario</button>
+              <a href="#comparison-section" id="compare-cta-btn" class="btn btn-yellow">Compare Loan</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- 6 & 7. SPECIFIC COLOUR RESULTS DASHBOARD -->
+        <div class="card" id="results-dashboard">
+          <h2 class="section-title">Loan Summary</h2>
+          <p class="section-desc" style="margin-bottom: 1.5rem;">Estimated breakdown of your repayment.</p>
+
+          <div id="polite-live-region" class="sr-only" aria-live="polite">Monthly EMI is ₹8,678</div>
+
+          <div class="results-grid">
+            <!-- 6. Monthly EMI (Background: #E43D12, Text: #FFFFFF) -->
+            <div class="result-card highlight">
+              <div class="result-header">
+                <span class="result-label">MONTHLY EMI</span>
+                <span>💡</span>
+              </div>
+              <div id="res-emi-val" class="result-value">₹8,678.23</div>
+              <div class="result-sub">Estimated monthly instalment</div>
+            </div>
+
+            <!-- 7a. Total Interest (Background: #D6536D, Text: #FFFFFF) -->
+            <div class="result-card interest-card">
+              <div class="result-header">
+                <span class="result-label">TOTAL INTEREST</span>
+              </div>
+              <div id="res-interest-val" class="result-value">₹10,82,775.80</div>
+              <div id="res-interest-pct" class="result-sub">52.0% of principal</div>
+            </div>
+
+            <!-- 7b. Total Repayment (Background: #EFB11D, Text: #252525) -->
+            <div class="result-card repayment-card">
+              <div class="result-header">
+                <span class="result-label">TOTAL REPAYMENT</span>
+              </div>
+              <div id="res-repayment-val" class="result-value">₹20,82,775.80</div>
+              <div class="result-sub">Principal + Interest</div>
+            </div>
+
+            <!-- 7c. Principal Amount (Background: #FFFFFF, Text: #252525, Border: #D8D4CC) -->
+            <div class="result-card principal-card">
+              <div class="result-header">
+                <span class="result-label">PRINCIPAL AMOUNT</span>
+              </div>
+              <div id="res-principal-val" class="result-value">₹10,00,000.00</div>
+              <div id="res-principal-pct" class="result-sub">48.0% of total repayment</div>
+            </div>
+          </div>
+
+          <p class="estimate-notice">* Note: Calculations are estimates based on monthly reducing balance. Actual lender terms may vary.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. REPAYMENT BREAKDOWN -->
+    <section id="breakdown-section" class="section" style="background: var(--color-card-bg); border-top: 2px solid var(--color-border); border-bottom: 2px solid var(--color-border);">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Repayment Breakdown</h2>
+          <p class="section-desc">Visual distribution of principal vs interest over the entire loan tenure.</p>
+        </div>
+
+        <div class="breakdown-grid">
+          <div class="chart-container">
+            <canvas id="doughnut-chart" role="img" aria-label="Doughnut chart showing principal vs interest breakdown"></canvas>
+          </div>
+
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-left">
+                <div class="legend-color principal"></div>
+                <div class="legend-title">Principal Amount</div>
+              </div>
+              <div id="legend-principal-val" class="legend-val">₹10,00,000.00</div>
+            </div>
+
+            <div class="legend-item">
+              <div class="legend-left">
+                <div class="legend-color interest"></div>
+                <div class="legend-title">Total Interest</div>
+              </div>
+              <div id="legend-interest-val" class="legend-val">₹10,82,775.80</div>
+            </div>
+
+            <!-- Composition Bar -->
+            <div class="composition-bar-container">
+              <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem;">Repayment Composition</div>
+              <div class="composition-bar">
+                <div id="comp-bar-principal" class="comp-segment principal" style="width: 48%;"></div>
+                <div id="comp-bar-interest" class="comp-segment interest" style="width: 52%;"></div>
+              </div>
+              <div class="comp-labels">
+                <span id="comp-label-principal">Principal: 48%</span>
+                <span id="comp-label-interest">Interest: 52%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. LOAN COMPARISON SECTION -->
+    <section id="comparison-section" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Loan Comparison</h2>
+          <p class="section-desc">Compare two loan options side by side to evaluate savings and EMI differences.</p>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Scenario A (Accent #E43D12) -->
+          <div class="card" style="border-top: 6px solid #E43D12;">
+            <div class="scenario-header">
+              <h3 style="font-size: 1.2rem; font-weight: 800;">Scenario A</h3>
+              <span class="scenario-badge a">Calculator Mirror</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div><strong>Amount:</strong> <span id="scen-a-amount">₹10,00,000</span></div>
+              <div><strong>Rate:</strong> <span id="scen-a-rate">8.5% p.a.</span></div>
+              <div><strong>Tenure:</strong> <span id="scen-a-tenure">20 Years (240 months)</span></div>
+              <hr style="border: 0; border-top: 1px solid var(--color-border); margin: 0.5rem 0;">
+              <div><strong>Monthly EMI:</strong> <span id="scen-a-emi" style="font-size: 1.2rem; font-weight: 900; color: #E43D12;">₹8,678.23</span></div>
+              <div><strong>Total Interest:</strong> <span id="scen-a-interest">₹10,82,775.80</span></div>
+              <div><strong>Total Repayment:</strong> <span id="scen-a-repayment">₹20,82,775.80</span></div>
+            </div>
+          </div>
+
+          <!-- Scenario B (Accent #D6536D) -->
+          <div class="card" style="border-top: 6px solid #D6536D;">
+            <div class="scenario-header">
+              <h3 style="font-size: 1.2rem; font-weight: 800;">Scenario B</h3>
+              <span class="scenario-badge b">Target Option</span>
+            </div>
+
+            <form id="scen-b-form">
+              <div class="form-group">
+                <label for="scen-b-amount" class="form-label">Loan Amount (₹)</label>
+                <input type="text" id="scen-b-amount" class="form-input" inputmode="decimal" value="10,00,000">
+                <div id="scen-b-amount-error" class="error-msg" style="display:none;"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="scen-b-rate" class="form-label">Interest Rate (% p.a.)</label>
+                <input type="text" id="scen-b-rate" class="form-input" inputmode="decimal" value="9.5">
+                <div id="scen-b-rate-error" class="error-msg" style="display:none;"></div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-label-row">
+                  <label for="scen-b-tenure" class="form-label">Tenure</label>
+                  <div class="unit-toggle-group">
+                    <button type="button" id="scen-b-unit-years" class="unit-toggle-btn active" data-unit="years">Yrs</button>
+                    <button type="button" id="scen-b-unit-months" class="unit-toggle-btn" data-unit="months">Mo</button>
+                  </div>
+                </div>
+                <input type="text" id="scen-b-tenure" class="form-input" inputmode="decimal" value="15">
+                <div id="scen-b-tenure-error" class="error-msg" style="display:none;"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Comparison Analysis Box -->
+        <div class="comparison-diff-card">
+          <h3 style="font-size: 1.2rem; font-weight: 800; text-align: center;">Comparison Analysis</h3>
+          
+          <div class="diff-grid">
+            <div class="diff-box">
+              <div class="diff-label">EMI Difference</div>
+              <div id="diff-emi-val" class="diff-val">+₹1,763.50</div>
+            </div>
+            <div class="diff-box">
+              <div class="diff-label">Interest Difference</div>
+              <div id="diff-interest-val" class="diff-val">-₹2,38,500.00</div>
+            </div>
+            <div class="diff-box" style="background:#EFB11D; border-color:#EFB11D; color:#252525;">
+              <div class="diff-label" style="color:#252525;">Overall Repayment Savings</div>
+              <div id="diff-savings-val" class="diff-val" style="color:#252525;">₹2,38,500 (Scenario B)</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; text-align: center; font-weight: 600;" id="comparison-analysis-text">
+            Scenario B has a higher EMI but lower total interest repayment due to a shorter tenure.
+          </div>
+
+          <div style="max-width: 600px; height: 220px; margin: 1.5rem auto 0;">
+            <canvas id="comparison-bar-chart" role="img" aria-label="Grouped bar chart comparing Scenario A and B"></canvas>
+          </div>
+
+          <div class="comparison-actions" style="justify-content: center;">
+            <button type="button" id="swap-scenarios-btn" class="btn btn-outline">Swap Scenarios</button>
+            <button type="button" id="copy-b-to-calc-btn" class="btn btn-secondary">Copy B to Calculator</button>
+            <button type="button" id="reset-comparison-btn" class="btn btn-secondary">Reset Comparison</button>
+            <select id="load-saved-b-select" class="form-input" style="width: auto;">
+              <option value="">Load Saved Scenario into B...</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. PREPAYMENT SIMULATOR -->
+    <section id="prepayment-section" class="section">
+      <div class="container">
+        <div class="card">
+          <div class="section-header">
+            <h2 class="section-title" style="color: #E43D12;">Prepayment Simulator</h2>
+            <p class="section-desc">Simulate extra payments to calculate time and interest savings.</p>
+          </div>
+
+          <form id="prepayment-form">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+              <div class="form-group">
+                <label for="extra-monthly-input" class="form-label">Extra Monthly Payment (₹)</label>
+                <input type="text" id="extra-monthly-input" class="form-input" inputmode="decimal" value="0">
+              </div>
+
+              <div class="form-group">
+                <label for="lump-sum-input" class="form-label">One-time Prepayment (₹)</label>
+                <input type="text" id="lump-sum-input" class="form-input" inputmode="decimal" value="0">
+              </div>
+
+              <div class="form-group">
+                <label for="lump-sum-month-input" class="form-label">Month of One-time Payment</label>
+                <input type="number" id="lump-sum-month-input" class="form-input" min="1" max="480" value="12" disabled>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Prepayment Strategy</label>
+                <div class="unit-toggle-group" style="width: 100%;">
+                  <button type="button" id="prep-mode-tenure" class="unit-toggle-btn active" style="flex: 1;" data-mode="reduce_tenure">Reduce Tenure</button>
+                  <button type="button" id="prep-mode-emi" class="unit-toggle-btn" style="flex: 1;" data-mode="reduce_emi">Reduce EMI</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+              <button type="button" id="reset-sim-btn" class="btn btn-secondary btn-sm">Reset Simulator</button>
+            </div>
+          </form>
+
+          <!-- High-Contrast Interest Savings Highlight Panel -->
+          <div class="simulator-results">
+            <div class="sim-box">
+              <div class="sim-label">Revised Tenure</div>
+              <div id="sim-new-tenure" class="sim-val">20 Years</div>
+            </div>
+            <div class="sim-box highlight">
+              <div class="sim-label">Time Saved</div>
+              <div id="sim-time-saved" class="sim-val">0 Months</div>
+            </div>
+            <div class="sim-box highlight" style="background:#238636; color:white;">
+              <div class="sim-label" style="color:white;">Interest Saved</div>
+              <div id="sim-interest-saved" class="sim-val" style="color:white;">₹0.00</div>
+            </div>
+            <div class="sim-box">
+              <div class="sim-label">Revised Repayment</div>
+              <div id="sim-new-repayment" class="sim-val">₹20,82,775.80</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. FINANCIAL INSIGHTS SPECIFIC CARDS -->
+    <section id="insights-section" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Financial Insights</h2>
+          <p class="section-desc">Automated, rule-based loan analytics to help you make smarter decisions.</p>
+        </div>
+
+        <div class="insights-grid">
+          <!-- Card 1: Soft Pink #FFA2B6 -->
+          <div class="insight-card card-pink">
+            <div class="insight-icon">📈</div>
+            <div class="insight-content">
+              <h4>Interest Ratio</h4>
+              <p id="insight-ratio-text">You are paying ₹1.08 in interest for every ₹1.00 borrowed.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Golden Yellow #EFB11D -->
+          <div class="insight-card card-yellow">
+            <div class="insight-icon">⏳</div>
+            <div class="insight-content">
+              <h4>50% Principal Milestone</h4>
+              <p id="insight-milestone-text">50% of loan principal will be repaid by Month 152 (Aug 2039).</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Rose Pink #D6536D with white text -->
+          <div class="insight-card card-rose">
+            <div class="insight-icon">💡</div>
+            <div class="insight-content">
+              <h4>Rate Sensitivity (+1%)</h4>
+              <p id="insight-rate-impact-text">A +1% rate hike increases EMI by ₹622/mo and total interest by ₹1.49L.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- What-If Interactive Slider Card -->
+        <div class="what-if-card">
+          <div class="form-group" style="margin-bottom: 0;">
+            <div class="form-label-row">
+              <label for="whatif-rate-slider" class="form-label" style="font-size: 1.15rem;">Interactive What-If Preview: Rate Adjustment</label>
+              <span id="whatif-rate-val" style="font-weight: 800; font-size: 1.15rem;">0.00% change (8.50%)</span>
+            </div>
+            <input type="range" id="whatif-rate-slider" class="form-slider" min="-2.0" max="2.0" step="0.25" value="0">
+            <div class="slider-labels">
+              <span>-2.0%</span>
+              <span>Baseline</span>
+              <span>+2.0%</span>
+            </div>
+          </div>
+
+          <div class="what-if-results">
+            <div class="what-if-stat">
+              <div class="what-if-stat-label">Preview Monthly EMI</div>
+              <div id="whatif-emi-val" class="what-if-stat-val">₹8,678.23</div>
+            </div>
+            <div class="what-if-stat">
+              <div class="what-if-stat-label">Preview Total Interest</div>
+              <div id="whatif-interest-val" class="what-if-stat-val">₹10,82,775.80</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AMORTIZATION SCHEDULE & FEATURES -->
+    <section id="schedule-section" class="section" style="background: var(--color-card-bg); border-top: 2px solid var(--color-border); border-bottom: 2px solid var(--color-border);">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Amortization Schedule</h2>
+          <p class="section-desc">Month-by-month and year-by-year payment schedule with principal and interest split.</p>
+        </div>
+
+        <div class="schedule-controls">
+          <div class="schedule-tabs" role="tablist">
+            <button type="button" id="tab-monthly" class="tab-btn active" role="tab" aria-selected="true" aria-controls="schedule-table-wrapper">Monthly View</button>
+            <button type="button" id="tab-yearly" class="tab-btn" role="tab" aria-selected="false" aria-controls="schedule-table-wrapper">Yearly Summary</button>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <label for="rows-per-page-select" style="font-weight: 700; font-size: 0.85rem;">Rows:</label>
+            <select id="rows-per-page-select" class="form-input" style="width: 80px; padding: 0.3rem 0.5rem;">
+              <option value="12">12</option>
+              <option value="24" selected>24</option>
+              <option value="60">60</option>
+            </select>
+
+            <button type="button" id="download-csv-btn" class="btn btn-outline btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export CSV
+            </button>
+
+            <button type="button" id="print-report-btn" class="btn btn-secondary btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              Print Report
+            </button>
+          </div>
+        </div>
+
+        <div id="schedule-table-wrapper" class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr id="schedule-table-header">
+                <th>Payment #</th>
+                <th>Month</th>
+                <th>Opening Balance</th>
+                <th>EMI</th>
+                <th>Principal Paid</th>
+                <th>Interest Paid</th>
+                <th>Closing Balance</th>
+              </tr>
+            </thead>
+            <tbody id="schedule-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+            <tfoot id="schedule-tfoot">
+              <!-- Reconciled totals -->
+            </tfoot>
+          </table>
+        </div>
+
+        <div id="schedule-pagination" class="pagination">
+          <div id="page-info" style="font-weight: 700; font-size: 0.9rem;">Page 1 of 10</div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" id="prev-page-btn" class="page-btn" disabled>Previous</button>
+            <button type="button" id="next-page-btn" class="page-btn">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAVED SCENARIOS -->
+    <section id="saved-section" class="section">
+      <div class="container">
+        <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap;">
+          <div>
+            <h2 class="section-title">Saved Calculations</h2>
+            <p class="section-desc">Locally stored loan scenarios for future reference.</p>
+          </div>
+          <button type="button" id="clear-all-scenarios-btn" class="btn btn-outline btn-sm">Clear All</button>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--color-muted); font-weight: 600;">Saved on this browser only; not synced across devices.</p>
+
+        <div id="saved-scenarios-list" class="saved-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION & DISCLAIMER -->
+    <section id="about-section" class="section" style="background: var(--color-card-bg); border-top: 2px solid var(--color-border);">
+      <div class="container">
+        <div class="card">
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; color:#E43D12;">About EMI Pro & Educational Disclaimer</h3>
+          <p style="font-size: 0.9rem; color: var(--color-muted); line-height: 1.6; font-weight: 500;">
+            EMI Pro provides estimates for educational and planning purposes only. Actual loan instalments, interest charges, fees, taxes, prepayment benefits, and repayment schedules may vary depending on lender policies and loan agreements. Please verify the final terms with your financial institution before making a borrowing decision.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-title" style="margin-bottom: 0.5rem;">EMI Pro</div>
+          <p style="font-size: 0.9rem; color: var(--color-muted); font-weight: 600;">CALCULATE. PLAN. SAVE. Modern financial dashboard.</p>
+          <div class="footer-disclaimer">
+            Built with Vanilla HTML5, CSS3, JavaScript & Canvas API. Works 100% offline.
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 1rem;">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#calculator-section">Calculator</a></li>
+            <li><a href="#comparison-section">Compare Loans</a></li>
+            <li><a href="#breakdown-section">Repayment</a></li>
+            <li><a href="#schedule-section">Features</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 1rem;">Tools</h4>
+          <ul class="footer-links">
+            <li><a href="#prepayment-section">Prepayment Simulator</a></li>
+            <li><a href="#insights-section">Financial Insights</a></li>
+            <li><a href="#saved-section">Saved Scenarios</a></li>
+            <li><a href="#about-section">About</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 EMI Pro. Advanced Loan Calculator & Financial Dashboard.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <div id="save-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="save-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="save-modal-title" class="modal-title">Save Calculation Scenario</h3>
+        <button type="button" class="btn-icon close-modal-btn" aria-label="Close dialog">✕</button>
+      </div>
+      <div>
+        <label for="save-scenario-name" class="form-label">Scenario Name</label>
+        <input type="text" id="save-scenario-name" class="form-input" maxlength="40" value="Home Loan – ₹10,00,000">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+        <button type="button" id="confirm-save-btn" class="btn btn-primary">Save Scenario</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="rename-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rename-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="rename-modal-title" class="modal-title">Rename Scenario</h3>
+        <button type="button" class="btn-icon close-modal-btn" aria-label="Close dialog">✕</button>
+      </div>
+      <div>
+        <label for="rename-scenario-name" class="form-label">New Scenario Name</label>
+        <input type="text" id="rename-scenario-name" class="form-input" maxlength="40">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+        <button type="button" id="confirm-rename-btn" class="btn btn-primary">Save Name</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="clear-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="clear-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="clear-modal-title" class="modal-title">Clear All Scenarios?</h3>
+        <button type="button" class="btn-icon close-modal-btn" aria-label="Close dialog">✕</button>
+      </div>
+      <p>Are you sure you want to delete all saved calculations? This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+        <button type="button" id="confirm-clear-btn" class="btn btn-danger">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="settings-modal-title" class="modal-title">Preferences & Settings</h3>
+        <button type="button" class="btn-icon close-modal-btn" aria-label="Close dialog">✕</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div>
+          <label for="setting-theme-select" class="form-label">Theme Mode</label>
+          <select id="setting-theme-select" class="form-input">
+            <option value="system">System Default</option>
+            <option value="light">Light Mode</option>
+            <option value="dark">Dark Mode</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="setting-format-select" class="form-label">Number Grouping Format</label>
+          <select id="setting-format-select" class="form-input">
+            <option value="indian">Indian (₹10,00,000)</option>
+            <option value="international">International (₹1,000,000)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="setting-preset-select" class="form-label">Default Loan Preset</label>
+          <select id="setting-preset-select" class="form-input">
+            <option value="home">Home Loan (8.5%, 20y)</option>
+            <option value="car">Car Loan (9.0%, 5y)</option>
+            <option value="personal">Personal Loan (12.0%, 3y)</option>
+            <option value="education">Education Loan (9.5%, 7y)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary close-modal-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=3.0"></script>
+</body>
+</html>

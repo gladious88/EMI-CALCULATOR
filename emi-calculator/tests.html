@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMI Pro - Dev Test Runner</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 0.5rem; }
+    .summary {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .summary.pass { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
+    .summary.fail { background: #7f1d1d; color: #fca5a5; border: 1px solid #dc2626; }
+    ul { list-style: none; padding: 0; }
+    li {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      font-family: monospace;
+    }
+    li.PASS { background: #1e293b; border-left: 4px solid #10b981; }
+    li.FAIL { background: #1e293b; border-left: 4px solid #ef4444; }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    .badge.PASS { background: #059669; color: white; }
+    .badge.FAIL { background: #dc2626; color: white; }
+  </style>
+</head>
+<body>
+  <h1>EMI Pro - Unit & Calculation Engine Test Suite</h1>
+  <div id="summary" class="summary">Running tests...</div>
+  <ul id="test-list"></ul>
+
+  <script src="script.js"></script>
+  <script src="tests.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.runEMIProTests) {
+        const { passCount, failCount, testResults } = window.runEMIProTests();
+        const summaryEl = document.getElementById('summary');
+        const listEl = document.getElementById('test-list');
+
+        if (failCount === 0) {
+          summaryEl.className = 'summary pass';
+          summaryEl.textContent = `✓ ALL ${passCount} TESTS PASSED CLEANLY`;
+        } else {
+          summaryEl.className = 'summary fail';
+          summaryEl.textContent = `✗ ${failCount} FAILED out of ${passCount + failCount} tests`;
+        }
+
+        testResults.forEach(res => {
+          const li = document.createElement('li');
+          li.className = res.status;
+          li.innerHTML = `<span class="badge ${res.status}">${res.status}</span> <strong>${res.description}</strong> ${res.details ? '<br><small style="color:#94a3b8">'+res.details+'</small>' : ''}`;
+          listEl.appendChild(li);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
